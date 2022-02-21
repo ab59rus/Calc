@@ -1,0 +1,52 @@
+#Missile 
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Missile : MonoBehaviour {
+
+    public GameObject hitEffectPerfab;
+
+    private void OnTriggerEnter(Collider other)
+    {
+        GameObject hitEffect = Instantiate (hitEffectPerfab, transform.position, transform.rotation);
+        Destroy(hitEffect, 0.2f);
+        Destroy(gameObject);
+    }
+}
+
+#Aircraft
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Aircraft : MonoBehaviour {
+
+    public Gun gun;
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            gun.Shoot();
+        }
+    }
+}
+
+#Gun
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Gun : MonoBehaviour {
+
+    public Missile missilePrefab;
+    
+    public void Shoot()
+    {
+        Missile missile = Instantiate(missilePrefab, transform.position, transform.rotation);
+        Destroy(missile.gameObject, 10f);
+
+    }
+
+}
